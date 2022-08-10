@@ -1,0 +1,97 @@
+.classic {
+	height: 100vh - 270px;
+}
+.header{
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	z-index: 1000;
+}
+.nav{
+	width: 100%;
+}
+.topnav-right{
+	width: 100%;
+}
+
+.topnav-right > button{
+	float: right;
+}
+
+.content{
+	margin-left: 270px;
+	margin-top: 64px;
+	margin-bottom: 30px;
+}
+
+.content-top {
+	padding-top: 30px;
+}
+	.content-top > h1 {
+	    width: 70% !important;
+	    margin: auto;
+		}
+		.content-top > form {
+			padding-top: 40px;
+		}
+			.content-top > div {
+				margin-top: 40px;
+			}
+
+.table {
+	margin-bottom: 0px !important;
+}
+
+.table button {
+	float: left;
+}
+
+.table > tbody > tr > td:first-child {
+	width: 150px;
+	cursor: pointer;
+}
+
+.table,
+.table td,
+.table th
+{
+    border: none !important; 
+}
+
+table tr{
+    border-top: 1px solid #c1c1c1;
+}
+
+table thead tr{
+    background-color: #97979740;
+}
+table thead th {
+    vertical-align: baseline;
+}
+
+.body {
+	display: flex;
+	overflow: scroll initial  
+}
+
+.body > div:first-child{
+	height: auto;
+	min-height: 100vh !important; 
+}
+
+.viewlist-content{
+	margin-top: 80px;
+}
+
+.confirm-panel {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 400px;
+    padding: 30px;
+    text-align: left;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 20px 75px rgb(0 0 0 / 13%);
+    color: #666;}
+
+
+

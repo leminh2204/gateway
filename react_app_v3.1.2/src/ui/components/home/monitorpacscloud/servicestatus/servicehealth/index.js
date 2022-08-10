@@ -1,0 +1,1 @@
+export {PACSCloudServiceHealth} from './component';

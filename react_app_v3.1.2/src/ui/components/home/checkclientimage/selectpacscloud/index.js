@@ -1,0 +1,1 @@
+export {SelectPacsCloud} from './component';

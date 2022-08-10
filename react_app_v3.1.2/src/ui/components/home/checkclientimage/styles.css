@@ -1,0 +1,46 @@
+.content-top > form {
+	width: 70% !important;
+	margin: auto;
+}
+
+.content-top > form > input {
+	width: 50% !important;
+}
+.modal-loading .modal-content{
+	background-color: transparent !important;
+}
+
+.modal-select{
+	background-color: white !important;
+}
+
+.modal-body{
+	color: #2196f3;
+}
+
+.spinner {
+	margin: auto;
+	/*textAlign: center;*/
+}
+.content-middle {
+	width: 70%;
+	margin: auto;
+}
+.container{
+	width: 100%;
+	padding-right: var(--bs-gutter-x,.75rem);
+	padding-left: var(--bs-gutter-x,.75rem);
+	margin-right: auto;
+	margin-left: auto;
+}
+table {
+	font-family: arial, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  }

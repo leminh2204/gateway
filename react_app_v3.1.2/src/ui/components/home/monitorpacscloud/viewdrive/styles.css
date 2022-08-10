@@ -1,0 +1,23 @@
+a {
+	padding: 20px;
+}
+
+svg{
+	padding: 3px;
+}
+
+.drive-body{
+	width: 100%;
+}
+.drive-item{
+	cursor:pointer;
+}
+.drive-tool{
+	width: 100%;
+	cursor:pointer;
+	display: inline-block;
+	margin-bottom: 20px;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}

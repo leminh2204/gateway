@@ -1,0 +1,1 @@
+export {GetImage} from './component';

@@ -1,0 +1,1 @@
+export {MemoryStatus} from './component';

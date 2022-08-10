@@ -1,0 +1,1 @@
+export {CheckClientImage} from './component';

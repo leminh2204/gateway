@@ -1,0 +1,1 @@
+export {SelectPACSClient} from './component';

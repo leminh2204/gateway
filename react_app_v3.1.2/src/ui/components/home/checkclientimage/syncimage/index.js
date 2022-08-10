@@ -1,0 +1,1 @@
+export {SyncImage} from './component';

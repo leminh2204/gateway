@@ -1,0 +1,1 @@
+export {CPUStatus} from './component';

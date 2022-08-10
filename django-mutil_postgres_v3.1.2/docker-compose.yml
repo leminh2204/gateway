@@ -1,0 +1,95 @@
+version: "3.3"
+   
+services:
+  postgresql-db:
+    image: postgres
+    container_name: gateway_database
+    volumes:
+      - ./database/scripts:/docker-entrypoint-initdb.d:z
+      - ./database/data/db:/var/lib/postgresql/data:z
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=identity,pacscloudgateway
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  gateway_auth_api:
+    build: ./auth_api
+    image: gateway_api:latest
+    container_name: gateway_auth_api
+    volumes:
+      - ./auth_api/pacscloudgateway_auth:/app/pacscloudgateway_auth:z
+      - ./auth_api/uwsgi:/app/uwsgi:z
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - APP_PATH=pacscloudgateway_auth
+      - AUTH_BIND=5000
+      - IP_ALLOW_CURL=http://127.0.0.1:5000
+    command: >
+        sh -c "python /app/pacscloudgateway_auth/manage.py makemigrations
+        && python /app/pacscloudgateway_auth/manage.py migrate
+        && uwsgi --ini /app/uwsgi/uwsgi.ini"
+    depends_on:
+      - postgresql-db
+
+  gateway_dicom_api:
+    image: gateway_api:latest
+    container_name: gateway_dicom_api
+    volumes:
+      - ./dicomimage_api/pacscloudgateway_dicom:/app/pacscloudgateway_dicom:z
+      - ./dicomimage_api/uwsgi:/app/uwsgi:z
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - APP_PATH=pacscloudgateway_dicom
+      - DICOM_BIND=8000
+      - IP_ALLOW_CURL=http://127.0.0.1:5000
+    command: >
+        sh -c "python /app/pacscloudgateway_dicom/manage.py makemigrations
+        && python /app/pacscloudgateway_dicom/manage.py migrate auth --database=identity_db
+        && python /app/pacscloudgateway_dicom/manage.py migrate image_status --database=pacscloudgateway_db
+        && python /app/pacscloudgateway_dicom/manage.py migrate gateway_setting --database=pacscloudgateway_db
+        && uwsgi --ini /app/uwsgi/uwsgi.ini"
+    depends_on:
+      - postgresql-db
+      - gateway_auth_api
+
+  gateway_monitor_api:
+    image: gateway_api:latest
+    container_name: gateway_monitor_api
+    volumes:
+      - ./monitor_api/pacscloudgateway_monitor:/app/pacscloudgateway_monitor:z
+      - ./monitor_api/uwsgi:/app/uwsgi:z
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - APP_PATH=pacscloudgateway_monitor
+      - MONITOR_BIND=9000
+      - IP_ALLOW_CURL=http://127.0.0.1:5000
+    command: >
+        sh -c "python /app/pacscloudgateway_monitor/manage.py makemigrations
+        && python /app/pacscloudgateway_monitor/manage.py migrate
+        && uwsgi --ini /app/uwsgi/uwsgi.ini"
+    depends_on:
+      - postgresql-db
+      - gateway_auth_api
+
+
+  nginx_uwsgi:
+    image: nginx
+    container_name: gateway_proxy
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates:z
+      - ./nginx/uwsgi_params:/etc/nginx/uwsgi_params:z
+    environment:
+      - AUTH_BIND=5000 
+      - DICOM_BIND=8000
+      - MONITOR_BIND=9000
+    ports:
+      - "5000:5000"
+      - "8000:8000"
+      - "9000:9000"
+    depends_on:
+      - gateway_auth_api
+      - gateway_dicom_api
+      - gateway_monitor_api

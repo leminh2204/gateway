@@ -1,0 +1,24 @@
+.content-top > form {
+	width: 70% !important;
+	margin: auto;
+}
+
+.content-top > form > input {
+	width: 89% !important;
+}
+.modal-loading .modal-content{
+	background-color: transparent !important;
+}
+
+.modal-select{
+	background-color: white !important;
+}
+
+.modal-body{
+	color: #2196f3;
+}
+
+.spinner {
+	margin: auto;
+	/*textAlign: center;*/
+}

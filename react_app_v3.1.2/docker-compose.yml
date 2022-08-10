@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+
+  react_gateway:
+    container_name: react_gateway
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app:z
+      - /app/node_modules
+    command: >
+        sh -c "npm run build"
+
+  proxy_react:
+    image: nginx:stable-alpine
+    container_name: proxy_react
+    volumes:
+      - ./build:/usr/share/nginx/html:z
+    ports:
+      - 3000:80
+    depends_on:
+      - react_gateway
+

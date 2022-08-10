@@ -1,0 +1,21 @@
+.content-panel{
+    background-color: #cfcfcf;
+    margin-top: 50px;
+    border: 1px solid #ffffff;
+    padding: 20px;
+}
+.content-panel h5{
+	color: red;
+}
+.content-panel .row {
+	margin-bottom: 20px;
+}
+
+.content-panel .row {
+	margin-bottom: 20px;
+}
+
+.content-panel button {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}

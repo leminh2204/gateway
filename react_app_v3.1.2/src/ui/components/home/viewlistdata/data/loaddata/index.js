@@ -1,0 +1,1 @@
+export {LoadData} from './component';

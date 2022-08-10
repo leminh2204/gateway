@@ -1,0 +1,1 @@
+export {SendImage} from './component';

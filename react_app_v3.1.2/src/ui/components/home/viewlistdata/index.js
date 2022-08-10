@@ -1,0 +1,1 @@
+export {ViewData} from './component';

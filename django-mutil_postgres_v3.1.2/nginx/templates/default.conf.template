@@ -1,0 +1,50 @@
+upstream app_auth {
+    server             gateway_auth_api:${AUTH_BIND} ;
+}
+
+upstream app_dicom {
+    server	       gateway_dicom_api:${DICOM_BIND} ;
+}
+
+upstream app_monitor{
+    server	       gateway_monitor_api:${MONITOR_BIND} ;
+}
+
+server {
+    # the port your site will be served on
+    listen      5000;
+    # the domain name it will serve for
+
+    # Finally, send all non-media requests to the Django server.
+    location / {
+        uwsgi_pass  app_auth;
+        include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed
+    }
+}
+
+server {
+    # the port your site will be served on
+    listen      8000;
+    # the domain name it will serve for
+
+
+    # Finally, send all non-media requests to the Django server.
+    location / {
+        uwsgi_pass  app_dicom;
+        include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed
+    }
+}
+
+server {
+    # the port your site will be served on
+    listen      9000;
+    # the domain name it will serve for
+
+
+    # Finally, send all non-media requests to the Django server.
+    location / {
+        uwsgi_pass  app_monitor;
+        include     /etc/nginx/uwsgi_params; # the uwsgi_params file you installed
+    }
+}
+

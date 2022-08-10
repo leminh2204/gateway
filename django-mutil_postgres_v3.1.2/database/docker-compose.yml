@@ -1,0 +1,12 @@
+version: "3.3"
+   
+services:
+  myapp-postgresql:
+    image: postgres
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_MULTIPLE_DATABASES=identity,pacscloudgateway
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
